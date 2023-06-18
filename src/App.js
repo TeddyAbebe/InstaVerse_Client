@@ -2,13 +2,20 @@ import React from "react";
 import { Layout, Image, Typography } from "antd";
 import Logo from "./Images/logo.png";
 import Home from "./Components/Home";
-import Story from "./Components/Story";
 import styles from "./styles";
 
 const { Title } = Typography;
 const { Header, Footer } = Layout;
 
 const App = () => {
+  const currentDate = new Date();
+  const date = currentDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
   return (
     <Layout style={styles.layout}>
       <Header style={styles.header}>
@@ -17,7 +24,12 @@ const App = () => {
         <Title style={styles.title}>InstaVerse</Title>
       </Header>
       <Home />
-      <Footer style={styles.footer}>2021 Instaverse</Footer>
+      <Footer style={styles.footer}>
+        {date} : {" "}
+        <b>
+          <i>InstaVerse</i>
+        </b>
+      </Footer>
     </Layout>
   );
 };
