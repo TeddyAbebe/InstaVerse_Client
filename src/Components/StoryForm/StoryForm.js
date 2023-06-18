@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import styles from "./styles";
 import { Card, Form, Input, Typography, Button } from "antd";
 import FileBase64 from "react-file-base64";
-import { createStory } from "../../Actions/stories";
+import { createStory, updateStory } from "../../Actions/stories";
 const { Title } = Typography;
 
 function StoryForm({ selectedId, setSelectedId }) {
@@ -12,11 +12,14 @@ function StoryForm({ selectedId, setSelectedId }) {
   const [form] = Form.useForm();
 
   const onSubmit = (formValues) => {
-    const storyWithUserId = {
+    const newStory = {
       ...formValues,
       userId: uuidv4(),
     };
-    dispatch(createStory(storyWithUserId));
+    selectedId
+      ? dispatch(updateStory(selectedId, newStory))
+      : dispatch(createStory(newStory));
+      
     console.log(formValues);
   };
 
