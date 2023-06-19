@@ -42,7 +42,7 @@ function StoryForm({ selectedId, setSelectedId }) {
       style={styles.formCard}
       title={
         <Title level={4} style={styles.formTitle}>
-          <b>{selectedId ? "Editing" : "Share"} a Story</b>
+          <b>{selectedId ? "Editing a Story..." : "Share a Story !"}</b>
         </Title>
       }
     >

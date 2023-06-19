@@ -13,7 +13,7 @@ function StoryList({ setSelectedId }) {
     </div>
   ) : (
     <Row gutter={[48, 32]}>
-      {stories.map((story) => {
+      {stories?.map((story) => {
         return (
           <Col key={story._id} lg={24} xl={12} xxl={8}>
             <Story setSelectedId={setSelectedId} story={story} />
