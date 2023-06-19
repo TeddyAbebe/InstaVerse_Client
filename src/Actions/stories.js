@@ -21,6 +21,7 @@ export const createStory = (story) => async (dispatch) => {
 export const updateStory = (id, story) => async (dispatch) => {
   try {
     const { data } = await api.updateStory(id, story);
+    
     dispatch({ type: "UPDATE_STORY", payload: data });
   } catch (error) {
     console.log(error.message);

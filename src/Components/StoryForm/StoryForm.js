@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles";
 import { Card, Form, Input, Typography, Button } from "antd";
 import FileBase64 from "react-file-base64";
@@ -8,6 +8,9 @@ import { createStory, updateStory } from "../../Actions/stories";
 const { Title } = Typography;
 
 function StoryForm({ selectedId, setSelectedId }) {
+  const story = useSelector((state) =>
+    selectedId ? state.stories.find((story) => story._id === selectedId) : null
+  );
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -19,14 +22,29 @@ function StoryForm({ selectedId, setSelectedId }) {
     selectedId
       ? dispatch(updateStory(selectedId, newStory))
       : dispatch(createStory(newStory));
-      
-    console.log(formValues);
-  };
 
+    console.log(formValues);
+
+    reset();
+  };
+  useEffect(() => {
+    if (story) {
+      form.setFieldsValue(story);
+    }
+  }, [story, form]);
+
+  const reset = () => {
+    form.resetFields();
+    setSelectedId(null);
+  };
   return (
     <Card
       style={styles.formCard}
-      title={<Title level={4} style={styles.formTitle}></Title>}
+      title={
+        <Title level={4} style={styles.formTitle}>
+          <b>{selectedId ? "Editing" : "Share"} a Story</b>
+        </Title>
+      }
     >
       <Form
         form={form}
@@ -74,6 +92,25 @@ function StoryForm({ selectedId, setSelectedId }) {
             Share
           </Button>
         </Form.Item>
+
+        {!selectedId ? null : (
+          <Form.Item
+            wrapperCol={{
+              span: 16,
+              offset: 6,
+            }}
+          >
+            <Button
+              type="primary"
+              block
+              htmlType="button"
+              danger
+              onClick={reset}
+            >
+              Discard
+            </Button>
+          </Form.Item>
+        )}
       </Form>
     </Card>
   );
