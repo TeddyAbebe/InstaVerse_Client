@@ -1,11 +1,12 @@
 import React from "react";
-import { Layout, Image, Typography } from "antd";
-import Logo from "./Images/logo.png";
+import { Layout } from "antd";
 import Home from "./Components/Home";
 import styles from "./styles";
+import AppBar from "./Components/AppBar/AppBar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AuthForm from "./Components/AuthForm/AuthForm";
 
-const { Title } = Typography;
-const { Header, Footer } = Layout;
+const { Footer } = Layout;
 
 const App = () => {
   const currentDate = new Date();
@@ -17,20 +18,21 @@ const App = () => {
   });
 
   return (
-    <Layout style={styles.layout}>
-      <Header style={styles.header}>
-        <Image style={styles.image} width={45} preview={false} src={Logo} />
-        &nbsp;
-        <Title style={styles.title}>InstaVerse</Title>
-      </Header>
-      <Home />
-      <Footer style={styles.footer}>
-        {date} : {" "}
-        <b>
-          <i>InstaVerse</i>
-        </b>
-      </Footer>
-    </Layout>
+    <BrowserRouter>
+      <Layout style={styles.layout}>
+        <AppBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/authform" element={<AuthForm />} />
+        </Routes>
+        <Footer style={styles.footer}>
+          {date} :{" "}
+          <b>
+            <i>InstaVerse</i>
+          </b>
+        </Footer>
+      </Layout>
+    </BrowserRouter>
   );
 };
 
