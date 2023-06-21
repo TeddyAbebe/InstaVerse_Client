@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Input, Button, Card, Layout, Typography, Form } from "antd";
 import styles from "./styles";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { login, signup } from "../../Actions/authentication"
 
 const { Title } = Typography;
 
 function AuthForm() {
-  const user = null;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [isLogin, setIsLogin] = useState(true);
 
-  const onsubmit = () => {};
+  const onsubmit = (formValues) => {
+    if (isLogin) {
+      dispatch(login(formValues, navigate));
+    } else {
+      dispatch(signup(formValues, navigate));
+    }
+  };
+  
   const switchMode = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };

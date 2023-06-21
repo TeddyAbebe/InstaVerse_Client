@@ -19,7 +19,7 @@ const styles = {
   },
   title: {
     color: "white",
-    margin: "0",
+    margin: "10px",
   },
   avatar: {
     color: "#f56a00",

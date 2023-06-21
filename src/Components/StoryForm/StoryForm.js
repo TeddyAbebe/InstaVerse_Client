@@ -5,6 +5,8 @@ import styles from "./styles";
 import { Card, Form, Input, Typography, Button } from "antd";
 import FileBase64 from "react-file-base64";
 import { createStory, updateStory } from "../../Actions/stories";
+import { Link } from "react-router-dom";
+
 const { Title } = Typography;
 
 function StoryForm({ selectedId, setSelectedId }) {
@@ -14,9 +16,13 @@ function StoryForm({ selectedId, setSelectedId }) {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
+  const user = JSON.parse(localStorage.getIte, "profile");
+  const username = user?.result?.username;
+
   const onSubmit = (formValues) => {
     const newStory = {
       ...formValues,
+      username,
       userId: uuidv4(),
     };
     selectedId
@@ -37,6 +43,19 @@ function StoryForm({ selectedId, setSelectedId }) {
     form.resetFields();
     setSelectedId(null);
   };
+
+  if (!user) {
+    return (
+      <Card style={styles.formCard}>
+        <Title level={4}>
+          <span style={styles.formTitle}>Welcome to InstaVerse!</span> <br />
+          Please <Link to="/authform">login</Link> or <Link to="/authform">register</Link> for sharing instant
+          moments or ideas.
+        </Title>
+      </Card>
+    );
+  }
+
   return (
     <Card
       style={styles.formCard}
@@ -54,13 +73,13 @@ function StoryForm({ selectedId, setSelectedId }) {
         size="middle"
         onFinish={onSubmit}
       >
-        <Form.Item
+        {/* <Form.Item
           name="username"
           label="User Name"
           rules={[{ required: true }]}
         >
           <Input allowClear />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item name="caption" label="Caption" rules={[{ required: true }]}>
           <Input.TextArea allowClear autoSize={{ minRows: 2, maxRows: 6 }} />
