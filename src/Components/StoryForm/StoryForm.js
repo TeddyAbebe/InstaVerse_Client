@@ -16,7 +16,7 @@ function StoryForm({ selectedId, setSelectedId }) {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const user = JSON.parse(localStorage.getIte, "profile");
+  const user = JSON.parse(localStorage.getItem("profile"));
   const username = user?.result?.username;
 
   const onSubmit = (formValues) => {
@@ -48,9 +48,10 @@ function StoryForm({ selectedId, setSelectedId }) {
     return (
       <Card style={styles.formCard}>
         <Title level={4}>
-          <span style={styles.formTitle}>Welcome to InstaVerse!</span> <br />
-          Please <Link to="/authform">login</Link> or <Link to="/authform">register</Link> for sharing instant
-          moments or ideas.
+          <span style={styles.formTitle}>Welcome to InstaVerse !</span> <br />
+          Please <Link to="/authform">login</Link> or{" "}
+          <Link to="/authform">register</Link> for sharing instant moments or
+          ideas.
         </Title>
       </Card>
     );

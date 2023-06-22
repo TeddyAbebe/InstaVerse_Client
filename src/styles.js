@@ -12,6 +12,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     zIndex: "1",
+    height:"2rem"
   },
   image: {
     width: "45px",
@@ -25,6 +26,8 @@ const styles = {
     textAlign: "center",
     background:
       "linear-gradient(90deg, rgba(246,83,39,1) 0%, rgba(147,27,252,1) 50%, rgba(246,83,39,1) 100%)",
+    height:"2rem"
+
   },
 };
 export default styles;
