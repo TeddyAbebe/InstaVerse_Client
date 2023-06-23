@@ -1,8 +1,9 @@
 import axios from "axios";
 
-// const url = "https://instaverse-server.onrender.com/stories";
-// const url = "http://localhost:5001/stories";
-const api = axios.create({ baseURL: "http://localhost:5001" });
+// const api = axios.create({ baseURL: "http://localhost:5001" });
+const api = axios.create({
+  baseURL: "https://instaverse-server.onrender.com/",
+});
 
 api.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
