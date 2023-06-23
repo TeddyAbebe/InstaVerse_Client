@@ -5,6 +5,7 @@ import styles from "./styles";
 import Logo from "../../Images/logo.png";
 import { useDispatch } from "react-redux";
 import { LOGOUT } from "../../Constants/actionTypes";
+import decode from "jwt-decode";
 
 const { Title } = Typography;
 const { Header } = Layout;
@@ -19,6 +20,8 @@ export default function AppBar() {
     const token = user?.token;
 
     if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
@@ -26,7 +29,7 @@ export default function AppBar() {
 
   const logout = () => {
     dispatch({ type: LOGOUT });
-    navigate("/");
+    navigate("/authform");
     setUser(null);
   };
   return (
