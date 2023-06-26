@@ -16,6 +16,12 @@ export default function AppBar() {
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
+  const logout = useCallback(() => {
+    dispatch({ type: LOGOUT });
+    navigate("/authform");
+    setUser(null);
+  }, [dispatch, navigate]);
+
   useEffect(() => {
     const token = user?.token;
 
@@ -27,11 +33,6 @@ export default function AppBar() {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location, logout, user?.token]);
 
-  const logout = useCallback(() => {
-    dispatch({ type: LOGOUT });
-    navigate("/authform");
-    setUser(null);
-  });
   return (
     <Header style={styles.header}>
       <Link to="/">
